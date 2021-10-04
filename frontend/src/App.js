@@ -6,11 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function App() {
-
   const [todoList, setTodoList] = useState([{}])
-  const [title, setTitle] = useState('') 
-  const [desc, setDesc] = useState('')
-
+  var [desc, setDesc] = useState("Add Your Task Here")
   // Read all todos
   useEffect(() => {
     axios.get('http://localhost:8000/api/todo')
@@ -21,26 +18,37 @@ function App() {
 
   // Post a todo
   const addTodoHandler = () => {
-    axios.post('http://localhost:8000/api/todo/', { 'title': title, 'description': desc })
-      .then(res => console.log(res))
-};
+    if(desc.length !== 0 && desc !== "Add Your Task Here"){
+      axios.post('http://localhost:8000/api/todo/', { 'description': desc })
+      .then(res => {console.log(res);
+
+    });
+    }
+  }
 
   return (
-      <div className="App list-group-item  justify-content-center align-items-center mx-auto p-3" style={{"width":"600px","height":"auto", "backgroundColor":"white", "MarginTop":"15px"}} >
-      <h1 className="card text-white bg-primary mb-1" styleName="max-width: 20rem;">Todo App</h1>
+     <form className = "row mt-5">
+       <h1 className = "text-center heading mb  -3 p-2 rounded text-white">Todo App</h1>
+       <div className="col-6 text-center">
+       <div className="App list-group-item  mx-auto p-3" style={{"width":"600px","height":"auto", "MarginTop":"15px"}} >
+      <h1 className="card text-white main mb-1" styleName="max-width: 20rem;">Add Todo</h1>
       <div className="card-body">
-      <h5 className="card text-white bg-dark mb-3">Add Your Task</h5>
       <span className="card-text"> 
-        <input className="mb-2 form-control titleIn" onChange={event => setTitle(event.target.value)} placeholder='Title'/> 
-        <input className="mb-2 form-control desIn" onChange={event => setDesc(event.target.value)}   placeholder='Description'/>
-      <button className="btn btn-outline-primary mx-2 mb-3" style={{'borderRadius':'50px',"font-weight":"bold"}}  onClick={addTodoHandler}>Add Task</button>
+        <input className="mb-2 form-control desIn" type="input" onChange={event  => setDesc(event.target.value)}   
+        placeholder= "Add Your Task Here"/>
+      <button type="submit" className="btn btn-outline-primary mx-2 m-3" style={{'borderRadius':'50px',"font-weight":"bold"}}  
+      onClick={addTodoHandler}>Add Task</button>
       </span>
-      <h5 className="card text-white bg-dark mb-3">Your Tasks</h5>
-      <div >
-      <TodoView todoList={todoList} />
-      </div>
       </div>
     </div>
+       </div>
+       <div  className="col-6 text-center list-group-item mx-auto p-3" style={{"width":"600px","height":"auto", "MarginTop":"15px"}} >
+       <h3 className="card text-white main mb-3 p-3">Your Tasks</h3>
+      <div>
+      <TodoView todoList={todoList} />
+      </div>
+       </div>
+     </form>
   );
 }
 
