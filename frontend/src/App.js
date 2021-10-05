@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [todoList, setTodoList] = useState([{}])
-  var [desc, setDesc] = useState("Add Your Task Here")
+  const [desc, setDesc] = useState("Add Your Task Here")
   // Read all todos
   useEffect(() => {
     axios.get('http://localhost:8000/api/todo')
