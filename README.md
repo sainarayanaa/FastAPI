@@ -15,7 +15,7 @@ Backend:
    2.To run middleware use command
    uvicorn main:app --reload
    (uvicorn is Fast ASGI server which helps in the interaction between app and the backend)
-   Frontend:
+ Frontend:
    1.Frontend is created using Reactjs, so you require some node modules to be installed
    npm install
   2.You can run frontend by running
